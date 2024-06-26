@@ -12,13 +12,30 @@ content:
   - url: .
     branches: HEAD
     start_path: docs
-  - url: https://github.com/hazelcast/hazelcast-mono
+  - url: ../hazelcast-mono
     branches: [master]
     start_path: docs/rest
 ui: 
   bundle:
     url: https://github.com/hazelcast/hazelcast-docs-ui/releases/latest/download/ui-bundle.zip #../hazelcast-docs-ui/build/ui-bundle.zip
     snapshot: true
+antora:
+  extensions:
+    - require: '@djencks/antora-aggregate-collector'
+      trace: true
+      componentversions:
+        - name: hz-docs
+          version: '5.5-snapshot'
+          mappings:
+            - module: integrate
+              family: attachment
+              origin:
+                url:
+                  include:
+                    - '**/hazelcast/hazelcast-mono'
+                branch:
+                  includes:
+                    - 'master'  
 asciidoc:
   attributes:
     # Download images from kroki at build time (does not work for inline images)
